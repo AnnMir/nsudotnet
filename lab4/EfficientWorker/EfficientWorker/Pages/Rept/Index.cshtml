@@ -1,0 +1,40 @@
+﻿@page
+@model EfficientWorker.Pages.Rept.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Workers)
+        </th>
+        <th>
+            Projects cost
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Workers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @{ 
+                    var sumCost = 0;
+                    try {
+                        sumCost = item.Projects.Sum(s => s.ProjectCost);                        
+                    } catch (ArgumentNullException e) { }
+                }
+                @Html.DisplayFor(modelItem => sumCost)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
